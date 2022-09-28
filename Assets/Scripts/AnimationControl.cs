@@ -6,6 +6,7 @@ public class AnimationControl : MonoBehaviour
 {
     private Animator animator;
     private PlayerMovement movement;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +19,11 @@ public class AnimationControl : MonoBehaviour
     {
         animator.SetFloat("speed", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
         animator.SetBool("inAir", movement.isInAir);
+        
+        Debug.DrawRay(GetComponent<Transform>().position, new Vector3(0, -1, 0), Color.red,1f, false);
+        
     }
 
 
-    void ExecuteRaycast() 
-    {
-        RaycastHit2D hitted2D = Physics2D.Raycast(GetComponent<Transform>().position, new Vector2(0f, -1f),1f);
-    }
+    
 }

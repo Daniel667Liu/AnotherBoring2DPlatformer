@@ -26,38 +26,59 @@ public class PlayerMovement : MonoBehaviour
         MoveRight();
         updateSpriteDirection();
         Jump();
+        CheckIfGrounded();
+        //Debug.Log(GetComponent<Rigidbody2D>().velocity.x);
     }
 
     void MoveLeft() 
     {
-        
-        if (Input.GetKey(KeyCode.A)) 
-        {
-            isFaceRight = false;
-            if (this.gameObject.GetComponent<Rigidbody2D>().velocity.x >= -1f*speedLimit) 
+
+        if (Input.GetKey(KeyCode.A))
             {
-                this.gameObject.GetComponent<Rigidbody2D>().velocity -= new Vector2(acceleration*Time.deltaTime, 0);
+                isFaceRight = false;
+                if (this.gameObject.GetComponent<Rigidbody2D>().velocity.x >= -1f * speedLimit)
+                {
+                    if (isInAir)
+                    {
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity -= new Vector2(acceleration * Time.deltaTime * 0.5f, 0);
+                    }
+                    else 
+                    {
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity -= new Vector2(acceleration * Time.deltaTime, 0);
+                    }
+                    
+                }
+
             }
-            
-        }
+      
+        
         
     }
 
     void MoveRight() 
     {
-       
-        if (Input.GetKey(KeyCode.D)) 
-        {
-            isFaceRight = true;
-            if (this.gameObject.GetComponent<Rigidbody2D>().velocity.x <= 1f * speedLimit)
+
+        if (Input.GetKey(KeyCode.D))
             {
-                this.gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(acceleration*Time.deltaTime, 0);
+                isFaceRight = true;
+                if (this.gameObject.GetComponent<Rigidbody2D>().velocity.x <= 1f * speedLimit)
+                {
+                    if (isInAir)
+                    {
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(acceleration * Time.deltaTime * 0.5f, 0);
+                    }
+                    else 
+                    {
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(acceleration * Time.deltaTime, 0);
+                    }
+                    
+                }
             }
-        }
-            
     }
 
-    void updateSpriteDirection() 
+
+
+    void updateSpriteDirection()
     {
         GetComponent<SpriteRenderer>().flipX = !isFaceRight;
     }
@@ -83,5 +104,20 @@ public class PlayerMovement : MonoBehaviour
         }
         
        
+    }
+
+    void CheckIfGrounded()
+    {
+        RaycastHit2D hitted2D = Physics2D.Raycast(GetComponent<Transform>().position, new Vector2(0f, -10f), 1f);
+        if (hitted2D)
+        {
+            isInAir = false;
+        }
+        else
+        {
+            isInAir = true;
+        }
+
+
     }
 }
