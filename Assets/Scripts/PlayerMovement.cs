@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckIfGrounded()
     {
-        RaycastHit2D hitted2D = Physics2D.Raycast(GetComponent<Transform>().position, new Vector2(0f, -10f), 1f);
+        RaycastHit2D hitted2D = Physics2D.Raycast(GetComponent<Transform>().position, new Vector2(0f, -1f), 1.5f);
         if (hitted2D)
         {
             isInAir = false;
