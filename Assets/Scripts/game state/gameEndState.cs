@@ -7,7 +7,9 @@ public class gameEndState : gameBaseState
 {
     public override void EnterState(GameStateManager stateManager)
     {
-        
+        stateManager.player.isAlive = false;
+        stateManager.gameOverAudio.Play();
+
         stateManager.endUI.SetActive(true);
         
     }

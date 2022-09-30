@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public float forcelimit = 5f;
     [HideInInspector]
     public bool isInAir = false;
+    public bool isAlive = false;
     Animator animator;
+    public AudioSource jumpAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +24,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveLeft();
-        MoveRight();
-        updateSpriteDirection();
-        Jump();
-        CheckIfGrounded();
-        //Debug.Log(GetComponent<Rigidbody2D>().velocity.x);
+
+        UpdateRigidbody();
+        if (isAlive) 
+        {
+            MoveLeft();
+            MoveRight();
+            updateSpriteDirection();
+            Jump();
+            CheckIfGrounded();
+        }
+        
+        
     }
 
     void MoveLeft() 
@@ -100,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
                 force = 0f;
                 animator.SetTrigger("jump");
                 isInAir = true;
+                jumpAudio.Play();
             }
         }
         
@@ -119,5 +128,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+
+    void UpdateRigidbody() 
+    {
+        if (isAlive)
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 1f;
+
+        }
+        else 
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 0f;
+
+        }
     }
 }

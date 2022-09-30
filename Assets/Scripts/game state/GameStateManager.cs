@@ -17,18 +17,22 @@ public class GameStateManager : MonoBehaviour
 
 
     //vars that control how fast people stand up
-    private PlayerInfo playerInfo;
+    public PlayerInfo playerInfo;
     public GameObject startUI;
     public GameObject endUI;
-    private AudioControl audioControl;
+    public AudioSource gameOverAudio;
+    public PlayerMovement player;
+    
+    
     
     void Start()
     {
         //change current state for test
         currentState = gameStartState;
         currentState.EnterState(this);
-        audioControl = FindObjectOfType<AudioControl>();
+        
         playerInfo = FindObjectOfType<PlayerInfo>();
+        player = FindObjectOfType<PlayerMovement>();
         
     }
 
