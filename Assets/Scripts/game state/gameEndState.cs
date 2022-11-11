@@ -9,7 +9,6 @@ public class gameEndState : gameBaseState
     {
         stateManager.player.isAlive = false;
         stateManager.gameOverAudio.Play();
-
         stateManager.endUI.SetActive(true);
         
     }

@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour
     
     
 
-    //get the reference of every game states, used for input info from the scene
+    //get the reference of every game states
     gameBaseState currentState;
     gameStartState gameStartState = new gameStartState();
     gameIngameState gameIngameState = new gameIngameState();
@@ -16,7 +16,6 @@ public class GameStateManager : MonoBehaviour
 
 
 
-    //vars that control how fast people stand up
     public PlayerInfo playerInfo;
     public GameObject startUI;
     public GameObject endUI;
